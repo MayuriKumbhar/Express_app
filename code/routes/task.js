@@ -56,10 +56,7 @@ router.post('/task', (request, response) => {
 })
 
 
-router.delete('/task/:id', (request, response) => {
-    console.log('delete a task')
-    response.send()
-})
+
 
 router.put('/task/:id/status', (request, response) => {
     console.log('update task')
