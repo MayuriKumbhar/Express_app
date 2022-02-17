@@ -57,8 +57,19 @@ router.post('/task', (request, response) => {
 
 
 router.delete('/task/:id', (request, response) => {
-    console.log('delete a task')
-    response.send()
+    const{ id }=request.params
+    const query =`delete from Task where id = ? `
+    const params=[id]
+    db.execute(query,params,(error,result)=>{
+        if(error)
+        {
+            response.send(error)
+        }
+        else
+        {
+            response.send(result)
+        }   
+    })
 })
 
 router.put('/task/:id/status', (request, response) => {

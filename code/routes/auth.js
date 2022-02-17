@@ -5,6 +5,20 @@ const db = require('../db')
 //import crypto-js for encrypt password
 const cryptoJs = require('crypto-js')
 
+router.get('/auth/all', (request,response)=>{
+    const query='select * from Auth'
+    db.execute(query, (error,result)=>{
+        if(error)
+        {
+            console.log(error);
+        }
+        else{
+            console.log(result);
+        }
+        response.send('done')
+    });
+})
+
 router.post('/auth/signup', (request, response) => {
     //get body parameters
     //console.log(request.body)
@@ -53,4 +67,22 @@ router.post('/auth/signin', (request, response) => {
     } )
 })
 
+router.get('/auth/profile/:id',(request,response)=>{
+    
+    const{ id }=request.params
+    const query ='select * from Auth where id = ?'
+    const params=[id]
+
+    db.execute(query,params,(error,result)=>{
+        if(error)
+        {
+            console.log("No Data:"+error)
+            response.send("No data")
+        }
+        else
+        {
+            response.send(result)
+        }
+    })
+})
 module.exports = router
